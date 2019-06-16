@@ -37,7 +37,7 @@ const (
 )
 const (
 	maIndex = iota
-	mbIndex = iota
+	mbIndex
 )
 
 var (
