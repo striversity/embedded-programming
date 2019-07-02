@@ -56,7 +56,7 @@ func main() {
 		port = flag.Args()[0]
 	}
 
-	log.Info("Using port %v\n", port)
+	log.Infof("Using port %v\n", port)
 
 	board1 := firmata.NewTCPAdaptor(port)
 	motorA := gpio.NewMotorDriver(board1, maPWMPin)
@@ -65,11 +65,14 @@ func main() {
 	motorB := gpio.NewMotorDriver(board1, mbPWMPin)
 	motorB.DirectionPin = mbDirPin
 	motorB.SetName("Motor-B")
-	
+
 	motors[maIndex] = motorA
 	motors[mbIndex] = motorB
 
 	work := func() {
+		motorA.Direction("forward")
+		motorB.Direction("backward")
+
 		gobot.Every(40*time.Millisecond, func() {
 			motorControl(maIndex)
 		})
@@ -92,8 +95,8 @@ func motorControl(idx int) {
 	m := motors[idx]
 
 	motorSpeed[idx] = byte(int(motorSpeed[idx]) + motorInc[idx])
-	log.Info(m.Name(), " speed to ", motorSpeed[idx])
-	motors[idx].Speed(motorSpeed[idx])
+	// log.Infof("Setting %v speed to %v\n", m.Name(), motorSpeed[idx])
+	m.Speed(motorSpeed[idx])
 
 	counter[idx]++
 	if counter[idx]%256 == 255 {
@@ -107,12 +110,10 @@ func motorControl(idx int) {
 	}
 
 	if counter[idx]%766 == 765 {
-		d := motors[idx].CurrentDirection
-		if d == "forward" {
-			d = "backward"
+		if m.CurrentDirection == "forward" {
+			m.Direction("backward")
 		} else {
-			d = "forward"
+			m.Direction("forward")
 		}
-		motors[idx].Direction(d)
 	}
 }

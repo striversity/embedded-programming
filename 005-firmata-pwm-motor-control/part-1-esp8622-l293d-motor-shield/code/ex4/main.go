@@ -52,16 +52,18 @@ func main() {
 		port = flag.Args()[0]
 	}
 
-	log.Info("Using port %v\n", port)
+	log.Infof("Using port %v\n", port)
 
 	board1 := firmata.NewTCPAdaptor(port)
 	motorA := gpio.NewMotorDriver(board1, maPWMPin)
 	motorA.DirectionPin = maDirPin
 
 	work := func() {
+		motorA.Direction("forward")
+
 		gobot.Every(40*time.Millisecond, func() {
 			maSpeed = byte(int(maSpeed) + maInc)
-			log.Info("Setting speed to ", maSpeed)
+			log.Infof("Setting speed to %v\n", maSpeed)
 			motorA.Speed(maSpeed)
 
 			counter++
@@ -78,13 +80,11 @@ func main() {
 			dirCounter++
 			if dirCounter == 765 {
 				dirCounter = 0
-				d := motorA.CurrentDirection
-				if d == "forward" {
-					d = "backward"
+				if motorA.CurrentDirection == "forward" {
+					motorA.Direction("backward")
 				} else {
-					d = "forward"
+					motorA.Direction("forward")
 				}
-				motorA.Direction(d)
 			}
 		})
 	}

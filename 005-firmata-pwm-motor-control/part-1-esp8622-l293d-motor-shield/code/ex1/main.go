@@ -49,7 +49,7 @@ func main() {
 		port = flag.Args()[0]
 	}
 
-	log.Info("Using port %v\n", port)
+	log.Infof("Using port %v\n", port)
 
 	board1 := firmata.NewTCPAdaptor(port)
 	maSpeedGpio := gpio.NewDirectPinDriver(board1, maPWMPin)
@@ -57,7 +57,7 @@ func main() {
 	work := func() {
 		gobot.Every(500*time.Millisecond, func() {
 			maSpeed += 5
-			log.Info("Setting speed to ", maSpeed)
+			log.Infof("Setting speed to %v\n", maSpeed)
 			maSpeedGpio.PwmWrite(maSpeed)
 		})
 	}

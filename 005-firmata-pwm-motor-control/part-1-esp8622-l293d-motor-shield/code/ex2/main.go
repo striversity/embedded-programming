@@ -38,7 +38,7 @@ const (
 
 var (
 	maSpeed byte
-	maInc = 1
+	maInc   = 1
 	counter = 0
 )
 
@@ -51,7 +51,7 @@ func main() {
 		port = flag.Args()[0]
 	}
 
-	log.Info("Using port %v\n", port)
+	log.Infof("Using port %v\n", port)
 
 	board1 := firmata.NewTCPAdaptor(port)
 	maSpeedGpio := gpio.NewDirectPinDriver(board1, maPWMPin)
@@ -59,17 +59,17 @@ func main() {
 	work := func() {
 		gobot.Every(40*time.Millisecond, func() {
 			maSpeed = byte(int(maSpeed) + maInc)
-			log.Info("Setting speed to ", maSpeed)
+			log.Infof("Setting speed to %v\n", maSpeed)
 			maSpeedGpio.PwmWrite(maSpeed)
-			
+
 			counter++
-			if counter == 255{
+			if counter == 255 {
 				counter = 0
-				if maInc == 1{
+				if maInc == 1 {
 					maInc = 0
-				}else if maInc == 0{
+				} else if maInc == 0 {
 					maInc = -1
-				}else{
+				} else {
 					maInc = 1
 				}
 			}
