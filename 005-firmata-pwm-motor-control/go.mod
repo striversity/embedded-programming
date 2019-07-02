@@ -1,4 +1,4 @@
-module 004-firmata-pwm
+module ep005
 
 go 1.12
 
