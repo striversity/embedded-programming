@@ -25,11 +25,11 @@ require (
 	github.com/raff/goble v0.0.0-20190228063054-5a206277e735 // indirect
 	github.com/sigurn/crc8 v0.0.0-20160107002456-e55481d6f45c // indirect
 	github.com/sigurn/utils v0.0.0-20151230205143-f19e41f79f8f // indirect
+	github.com/sirupsen/logrus v1.4.2
 	github.com/veandco/go-sdl2 v0.3.0 // indirect
 	go.bug.st/serial.v1 v0.0.0-20180827123349-5f7892a7bb45 // indirect
 	gobot.io/x/gobot v1.12.0
 	gocv.io/x/gocv v0.19.0 // indirect
 	golang.org/x/net v0.0.0-20190328230028-74de082e2cca // indirect
-	golang.org/x/sys v0.0.0-20190312061237-fead79001313 // indirect
 	periph.io/x/periph v3.4.0+incompatible // indirect
 )

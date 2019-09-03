@@ -15,6 +15,7 @@ require (
 	github.com/sigurn/crc8 v0.0.0-20160107002456-e55481d6f45c // indirect
 	github.com/sigurn/utils v0.0.0-20151230205143-f19e41f79f8f // indirect
 	github.com/sirupsen/logrus v1.4.2
+	github.com/tinygo-org/tinygo v0.7.1 // indirect
 	go.bug.st/serial.v1 v0.0.0-20180827123349-5f7892a7bb45 // indirect
 	gobot.io/x/gobot v1.12.0
 	golang.org/x/sys v0.0.0-20190509141414-a5b02f93d862 // indirect
